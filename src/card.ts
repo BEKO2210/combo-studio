@@ -13,8 +13,11 @@ export const FORMATS: Record<Format, [number, number]> = {
 
 export type CardData = {
   a: string; b: string; aName: string; bName: string;
-  number: number; header: string; brand: string;
+  number: number; header: string;
 };
+
+/** Signatur unten links – fest auf jeder Karte. */
+export const BRAND = '#BEKO2210';
 
 const DISPLAY = '"Archivo Variable", "Archivo", system-ui, sans-serif';
 const TALL = '"Big Shoulders Display Variable", "Archivo Variable", sans-serif';
@@ -169,7 +172,7 @@ export function drawCard(ctx: CanvasRenderingContext2D, W: number, H: number, d:
   ctx.textAlign = 'left';
   ctx.textBaseline = 'alphabetic';
   ctx.font = `400 normal ${30 * u}px ${DISPLAY}`;
-  ctx.fillText(d.brand, pad, botY + cardH - 52 * u);
+  ctx.fillText(BRAND, pad, botY + cardH - 52 * u);
   const r = 23 * u;
   [0.3, 0.6, 1].forEach((al, i) => chevronCircle(ctx, W - pad - r - (2 - i) * 56 * u, botY + cardH - 62 * u, r, u, d.a, al));
 

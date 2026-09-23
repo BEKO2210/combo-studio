@@ -14,7 +14,7 @@ import { icon, type IconName } from './icons.ts';
 
 // ---------- Zustand ----------
 type State = Pair & { lockA: boolean; lockB: boolean };
-type Settings = { header: string; brand: string; number: number; format: Format };
+type Settings = { header: string; number: number; format: Format };
 type Row = [number, string, string, string, string, Style, Family];
 
 const $ = <T extends HTMLElement = HTMLElement>(s: string, root: ParentNode = document) => root.querySelector<T>(s)!;
@@ -37,7 +37,7 @@ let lang: Lang = detectLang();
 let T: Strings = LANGS[lang];
 let state: State = { a: '#21F1A8', b: '#171717', aName: 'Tiffany', bName: 'Dark Gray', lockA: false, lockB: false };
 const history: State[] = [];
-let settings: Settings = store.get('settings', { header: 'LEARN DESIGN', brand: '@yourbrand', number: 1, format: '4:5' as Format });
+let settings: Settings = store.get('settings', { header: 'LEARN DESIGN', number: 1, format: '4:5' as Format });
 let series: Pair[] = store.getArr<Pair>('series').filter((p) => isHex(p?.a) && isHex(p?.b));
 let filterStyle: Style | null = null;
 let filterFamily: Family | null = null;
@@ -153,7 +153,7 @@ async function setHex(slot: 'a' | 'b', raw: string) {
 
 // ---------- Darstellung ----------
 const cardData = (p: Pair, number = settings.number): CardData => ({
-  a: p.a, b: p.b, aName: p.aName, bName: p.bName, number, header: settings.header, brand: settings.brand,
+  a: p.a, b: p.b, aName: p.aName, bName: p.bName, number, header: settings.header,
 });
 
 function render() {
@@ -350,9 +350,7 @@ function wire() {
   });
 
   $<HTMLInputElement>('#set-header').value = settings.header;
-  $<HTMLInputElement>('#set-brand').value = settings.brand;
   $('#set-header').addEventListener('input', (e) => { settings.header = (e.target as HTMLInputElement).value; saveSettings(); render(); });
-  $('#set-brand').addEventListener('input', (e) => { settings.brand = (e.target as HTMLInputElement).value; saveSettings(); render(); });
   $('#num-minus').addEventListener('click', () => { settings.number = Math.max(1, settings.number - 1); saveSettings(); render(); });
   $('#num-plus').addEventListener('click', () => { settings.number = Math.min(99, settings.number + 1); saveSettings(); render(); });
   $('#formats').addEventListener('click', (e) => {

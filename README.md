@@ -3,7 +3,7 @@
 1,000,000 pre-checked two-color combinations for designers and AI agents.
 
 - Generator in OKLCH. Every pair passes WCAG 2.2 ≥ 3:1 and |APCA Lc| ≥ 60 in both directions, so either color works as background with the other as text.
-- Card export in the "LEARN DESIGN / COMBO" style: PNG, ZIP carousel, MP4/WebM slideshow (4:5, 3:4, 9:16, 1:1).
+- Card export in the "LEARN DESIGN / COMBO" style, signed #BEKO2210: PNG, ZIP carousel, MP4/WebM slideshow (4:5, 3:4, 9:16, 1:1).
 - "Copy for AI": ready-made Markdown with HEX/RGB/OKLCH, contrast and CSS. Also JSON, CSS, Tailwind v4, W3C design tokens.
 - Open static API for agents, see [`public/llms.txt`](public/llms.txt).
 - Lock a color to get a matching partner, filter by style and color family, color-vision previews (Machado 2009).
