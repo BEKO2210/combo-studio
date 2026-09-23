@@ -1,0 +1,19 @@
+/* Unterseiten: Über mich, Impressum, Datenschutz */
+.page { max-width: 720px; margin: 0 auto; padding: 24px 16px 8px; }
+.page h1 { margin: 0 0 16px; font: 800 clamp(36px, 10vw, 56px)/1 var(--tall); text-transform: uppercase; letter-spacing: .01em; }
+.page h2 { margin: 32px 0 8px; font: 800 22px/1.15 var(--tall); text-transform: uppercase; letter-spacing: .05em; }
+.page h3 { margin: 20px 0 6px; font-size: 16px; }
+.page p, .page li { color: #d6d6d2; max-width: 65ch; }
+.page a { color: var(--hi); text-underline-offset: 3px; }
+.page address { font-style: normal; line-height: 1.7; }
+.back { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: 8px; color: var(--muted); text-decoration: none; font-size: 15px; }
+
+.about { display: grid; gap: 24px; justify-items: center; text-align: center; padding-top: 8px; }
+.about img { width: min(240px, 60vw); height: auto; aspect-ratio: 1; border-radius: 50%; }
+.about .tag { font: 800 22px/1 var(--tall); letter-spacing: .06em; color: var(--hi); }
+.about p { margin: 0 auto; }
+.about-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.about-links a { color: var(--text); text-decoration: none; }
+
+.foot nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; margin-bottom: 8px; }
+.foot nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text); text-decoration: none; font-weight: 600; }

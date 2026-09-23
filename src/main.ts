@@ -1,6 +1,7 @@
 import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource-variable/big-shoulders-display';
 import './style.css';
+import './page.css';
 
 import { apcaLc, hexToRgb, relLuminance, simulateCvd, wcagRatio, type CvdKind } from './color.ts';
 import { CATALOG_SIZE, STYLES, comboById, partnerFor, rngFromSeed, type Style } from './generator.ts';

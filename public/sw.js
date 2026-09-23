@@ -1,5 +1,5 @@
 // Offline-Cache: Seite netzwerk-zuerst, Assets/Namen/Katalog cache-zuerst (Katalog auf 80 Shards begrenzt).
-const V = 'combo-v1';
+const V = 'combo-v2';
 const SHARDS = 'combo-shards-v1';
 
 self.addEventListener('install', (e) => {
@@ -22,11 +22,13 @@ self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET' || url.origin !== location.origin) return;
 
   if (e.request.mode === 'navigate') {
+    // Unter der eigenen Adresse cachen (ohne Hash), sonst würde about.html die Startseite überschreiben
+    const key = url.origin + url.pathname;
     e.respondWith(fetch(e.request).then((r) => {
       const copy = r.clone();
-      caches.open(V).then((c) => c.put('./', copy));
+      if (r.ok) caches.open(V).then((c) => c.put(key, copy));
       return r;
-    }).catch(() => caches.match('./')));
+    }).catch(async () => (await caches.match(key)) ?? caches.match('./')));
     return;
   }
 

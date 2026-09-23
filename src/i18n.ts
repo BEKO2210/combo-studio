@@ -46,7 +46,6 @@ const de = {
   agentsText: 'Alle Combos gibt es als offene JSON-Schnittstelle. Agenten lesen /llms.txt und finden jede Combo per Nummer.',
   offline: 'Offline – Combo lokal berechnet',
   install: 'App installieren',
-  catalog: 'Katalog',
 };
 
 const en: typeof de = {
@@ -95,7 +94,6 @@ const en: typeof de = {
   agentsText: 'Every combo is available as an open JSON API. Agents read /llms.txt and fetch any combo by number.',
   offline: 'Offline – combo computed locally',
   install: 'Install app',
-  catalog: 'Catalog',
 };
 
 export type Strings = typeof de;
