@@ -1,0 +1,27 @@
+# Combo Studio
+
+> 1,000,000 pre-checked two-color combinations ("combos") for designers and AI agents. Every combo passes WCAG 2.2 contrast >= 3:1 and |APCA Lc| >= 60 in both directions, so either color can be the background with the other as text. Free, no key, static JSON, CC0.
+
+## How to fetch a combo
+
+- Combo IDs run from 1 to 1000000.
+- Shard file: `api/v1/combos/{shard}.json` where `shard = floor((id - 1) / 1000)`, zero-padded to 4 digits (id 482913 -> `api/v1/combos/0482.json`).
+- Each shard: `{"fields":["id","a","aName","b","bName","style","family"],"combos":[[id,"#HEX","Name","#HEX","Name","style","family"], ...]}`.
+- Human link for any combo: `#{id}` on the site root (e.g. `/#482913`). Custom pairs: `/#RRGGBB-RRGGBB`.
+
+## How to search
+
+- `api/v1/index.json`: catalog metadata and list of facets with counts.
+- `api/v1/facets/{style}-{family}.json`: sorted list of combo IDs, e.g. `facets/neon-teal.json`.
+- style: neon (vivid + tinted near-black/near-white), tonal (same hue, light/dark), neutral (color + tinted neutral), complement, split.
+- family (hue of the more saturated color): red, orange, yellow, lime, green, teal, cyan, blue, indigo, violet, magenta, pink, neutral.
+
+## How to use a combo in a design
+
+- Color A and color B form a two-color system: A as background with B as text/lines, and the reverse.
+- Safe for headlines and large text in both directions; for small body text check the WCAG ratio (>= 4.5 for AA).
+
+## Optional
+
+- [Catalog index](api/v1/index.json)
+- Color names: meodai/color-names (MIT)

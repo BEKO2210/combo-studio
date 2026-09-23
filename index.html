@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Combo Studio – 1.000.000 perfekte Farb-Combos</title>
+  <meta name="description" content="Zwei-Farben-Combos, die immer lesbar sind: Generator mit WCAG- und APCA-Prüfung, Instagram-Karten, Video-Export und offene API für KI-Agenten." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+  <link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt" />
+  <meta property="og:title" content="Combo Studio – 1.000.000 perfekte Farb-Combos" />
+  <meta property="og:description" content="Jede Combo lesbar, jede teilbar – als Karte, Video oder direkt an deine KI." />
+  <meta property="og:image" content="og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+</head>
+<body>
+  <header class="top">
+    <a class="logo" href="./" aria-label="Combo Studio">
+      <span class="dot dot-a"></span><span class="dot dot-b"></span>
+      <span>COMBO STUDIO</span>
+    </a>
+    <nav class="top-nav">
+      <a href="#agents" data-t="catalog">Katalog</a>
+      <button id="lang" class="chip" type="button">EN</button>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="stage" aria-label="Vorschau">
+      <canvas id="card" width="1080" height="1350" role="img" aria-label=""></canvas>
+      <p class="meta"><span id="combo-id"></span><span id="combo-style"></span></p>
+    </section>
+
+    <section class="panel">
+      <p class="tagline" data-t="tagline"></p>
+
+      <div class="actions">
+        <button id="gen" class="btn primary big" type="button"><span data-icon="refresh"></span><span data-t="generate"></span><kbd data-t="generateHint"></kbd></button>
+        <button id="undo" class="btn icon-btn" type="button" data-label="undo"><span data-icon="undo"></span></button>
+        <button id="swap" class="btn icon-btn" type="button" data-label="swap"><span data-icon="swap"></span></button>
+      </div>
+
+      <div class="colors">
+        <div class="color-row" data-slot="a">
+          <label class="swatch"><input type="color" /><span class="sr" data-t="hexA"></span></label>
+          <div class="fields">
+            <input class="name" type="text" maxlength="24" autocomplete="off" spellcheck="false" />
+            <input class="hex" type="text" maxlength="7" autocomplete="off" spellcheck="false" inputmode="text" />
+          </div>
+          <button class="btn icon-btn lock" type="button"><span data-icon="unlock"></span></button>
+          <button class="btn icon-btn copy-hex" type="button" data-label="copy"><span data-icon="copy"></span></button>
+        </div>
+        <div class="color-row" data-slot="b">
+          <label class="swatch"><input type="color" /><span class="sr" data-t="hexB"></span></label>
+          <div class="fields">
+            <input class="name" type="text" maxlength="24" autocomplete="off" spellcheck="false" />
+            <input class="hex" type="text" maxlength="7" autocomplete="off" spellcheck="false" inputmode="text" />
+          </div>
+          <button class="btn icon-btn lock" type="button"><span data-icon="unlock"></span></button>
+          <button class="btn icon-btn copy-hex" type="button" data-label="copy"><span data-icon="copy"></span></button>
+        </div>
+      </div>
+
+      <details class="box" open>
+        <summary data-t="filter"></summary>
+        <h3 data-t="style"></h3>
+        <div class="chips" id="styles"></div>
+        <h3 data-t="family"></h3>
+        <div class="chips families" id="families"></div>
+      </details>
+
+      <div class="box quality">
+        <h2 data-t="quality"></h2>
+        <div class="q-row">
+          <div class="q-main"><strong id="wcag"></strong><span id="wcag-level" class="badge"></span></div>
+          <div class="q-apca"><span>APCA</span><strong id="apca"></strong></div>
+        </div>
+        <h3 data-t="cvd"></h3>
+        <div class="cvd" id="cvd"></div>
+      </div>
+
+      <div class="box">
+        <h2 data-t="export"></h2>
+        <button id="ai" class="btn primary wide" type="button"><span data-icon="sparkles"></span><span data-t="forAi"></span></button>
+        <p class="hint" data-t="forAiHint"></p>
+        <div class="grid3">
+          <button id="png" class="btn" type="button"><span data-icon="download"></span><span data-t="png"></span></button>
+          <button id="share" class="btn" type="button"><span data-icon="share"></span><span data-t="share"></span></button>
+          <button id="link" class="btn" type="button"><span data-icon="link"></span><span data-t="link"></span></button>
+        </div>
+        <div class="tabs" id="code-tabs" role="tablist"></div>
+        <div class="code-wrap">
+          <pre id="code" tabindex="0"></pre>
+          <button id="code-copy" class="btn icon-btn code-copy" type="button" data-label="copy"><span data-icon="copy"></span></button>
+        </div>
+      </div>
+
+      <details class="box">
+        <summary data-t="card"></summary>
+        <label class="field"><span data-t="header"></span><input id="set-header" type="text" maxlength="28" /></label>
+        <label class="field"><span data-t="brand"></span><input id="set-brand" type="text" maxlength="32" /></label>
+        <div class="field">
+          <span data-t="number"></span>
+          <div class="stepper">
+            <button id="num-minus" class="btn icon-btn" type="button" aria-label="−"><span data-icon="minus"></span></button>
+            <output id="num"></output>
+            <button id="num-plus" class="btn icon-btn" type="button" aria-label="+"><span data-icon="plus"></span></button>
+          </div>
+        </div>
+        <div class="field"><span data-t="format"></span><div class="seg" id="formats" role="radiogroup"></div></div>
+      </details>
+
+      <div class="box">
+        <div class="box-head">
+          <h2><span data-t="series"></span> <span id="series-count" class="count"></span></h2>
+          <button id="add" class="btn" type="button"><span data-icon="plus"></span><span data-t="addSeries"></span></button>
+        </div>
+        <p class="hint" id="series-empty" data-t="seriesEmpty"></p>
+        <ol class="series" id="series"></ol>
+        <div class="grid3" id="series-actions">
+          <button id="zip" class="btn" type="button"><span data-icon="archive"></span><span data-t="zip"></span></button>
+          <button id="video" class="btn" type="button"><span data-icon="film"></span><span data-t="video"></span></button>
+          <button id="clear" class="btn" type="button"><span data-icon="trash"></span><span data-t="clear"></span></button>
+        </div>
+      </div>
+
+      <div class="box" id="agents">
+        <h2 data-t="forAgents"></h2>
+        <p class="hint" data-t="agentsText"></p>
+        <ul class="links">
+          <li><a href="llms.txt">/llms.txt</a></li>
+          <li><a href="api/v1/index.json">/api/v1/index.json</a></li>
+          <li><a id="shard-link" href="#"></a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Combo Studio · Keine Cookies, kein Tracking · Farbnamen: <a href="https://github.com/meodai/color-names">meodai/color-names</a> (MIT) · Kontrast: WCAG 2.2 + APCA 0.0.98G</p>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
