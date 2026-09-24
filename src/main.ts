@@ -154,7 +154,7 @@ async function setHex(slot: 'a' | 'b', raw: string) {
 
 // ---------- Darstellung ----------
 const cardData = (p: Pair, number = settings.number): CardData => ({
-  a: p.a, b: p.b, aName: p.aName, bName: p.bName, number, header: settings.header,
+  a: p.a, b: p.b, aName: p.aName, bName: p.bName, number, header: settings.header, id: p.id,
 });
 
 function render() {

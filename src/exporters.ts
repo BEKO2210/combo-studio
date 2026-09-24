@@ -21,7 +21,7 @@ export function download(blob: Blob, name: string) {
 }
 
 export const fileName = (d: CardData, ext: string) =>
-  `combo-${String(d.number).padStart(2, '0')}-${d.a.slice(1)}-${d.b.slice(1)}.${ext}`.toLowerCase();
+  `combo-${d.id ?? String(d.number).padStart(2, '0')}-${d.a.slice(1)}-${d.b.slice(1)}.${ext}`.toLowerCase();
 
 export async function zipCards(fmt: Format, cards: CardData[]): Promise<Blob> {
   const files: Record<string, Uint8Array> = {};

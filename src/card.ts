@@ -14,6 +14,8 @@ export const FORMATS: Record<Format, [number, number]> = {
 export type CardData = {
   a: string; b: string; aName: string; bName: string;
   number: number; header: string;
+  /** Katalognummer; ohne = eigene Combo (nur „COMBO“ im Kreis). */
+  id?: number;
 };
 
 /** Signatur unten links – fest auf jeder Karte. */
@@ -182,18 +184,27 @@ export function drawCard(ctx: CanvasRenderingContext2D, W: number, H: number, d:
   ctx.beginPath(); ctx.arc(W / 2, cy, 146 * u, 0, Math.PI * 2); ctx.fill();
   const vivid = hexToOklch(d.a).c >= hexToOklch(d.b).c ? d.a : d.b;
   const other = vivid === d.a ? d.b : d.a;
-  // Schmal gestaucht wie in der Vorlage: hoch, eng, mit Luft zum Kreisrand
-  const size = 96 * u;
+  // Schmal gestaucht wie in der Vorlage: hoch, eng, mit Luft zum Kreisrand.
+  // Katalog-Combos: „COMBO“ klein, darunter die eigene Nummer groß.
+  const sx = 0.74, maxW = (210 * u) / sx;
   ctx.translate(W / 2, cy + 4 * u);
-  ctx.scale(0.74, 1);
-  const grad = ctx.createLinearGradient(0, -size / 2, 0, size / 2);
+  ctx.scale(sx, 1);
+  const top = d.id ? -62 * u : -48 * u, bottom = d.id ? 66 * u : 48 * u;
+  const grad = ctx.createLinearGradient(0, top, 0, bottom);
   grad.addColorStop(0, vivid);
   grad.addColorStop(1, mixOklab(vivid, other, 0.55));
   ctx.fillStyle = grad;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.font = `700 ${size}px ${TALL}`;
-  ctx.fillText(`COMBO ${num}`, 0, 0, 200 * u / 0.74);
+  if (d.id) {
+    ctx.font = `700 ${54 * u}px ${TALL}`;
+    ctx.fillText('COMBO', 0, -36 * u, maxW);
+    ctx.font = `800 ${92 * u}px ${TALL}`;
+    ctx.fillText(String(d.id), 0, 30 * u, maxW);
+  } else {
+    ctx.font = `700 ${96 * u}px ${TALL}`;
+    ctx.fillText('COMBO', 0, 0, maxW);
+  }
   ctx.restore();
 }
 
